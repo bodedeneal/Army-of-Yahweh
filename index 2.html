@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Army of God</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 64px;
+  gap: 24px;
+}
+
+.brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #111;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.search-wrap {
+  flex: 1;
+  max-width: 420px;
+  position: relative;
+}
+
+.search-wrap input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 36px 8px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #111;
+  outline: none;
+  background: #fafafa;
+  transition: border-color 0.2s;
+}
+
+.search-wrap input:focus { border-color: #111; background: #fff; }
+.search-wrap input::placeholder { color: #aaa; }
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 15px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+#search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.sr-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+.sr-item:last-child { border-bottom: none; }
+.sr-item:hover { background: #f7f7f7; }
+.sr-item .sr-name { font-weight: 500; color: #111; margin-bottom: 2px; }
+.sr-item .sr-sub { font-size: 12px; color: #888; }
+.sr-no { padding: 12px 14px; color: #999; font-size: 13px; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-right a {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #333;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-right a:hover { color: #000; }
+
+.nav-dropdown { position: relative; }
+
+.nav-dropdown > button {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-dropdown > button:hover { color: #000; }
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 20px);
+  right: 0;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  z-index: 200;
+  overflow: hidden;
+}
+.nav-dropdown:hover .dropdown-menu { display: block; }
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background 0.15s;
+}
+.dropdown-menu a:last-child { border-bottom: none; }
+.dropdown-menu a:hover { background: #f7f7f7; color: #000; }
+
+/* ── HERO ── */
+.hero {
+  background: #f7f5f0;
+  padding: 80px 40px;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── VERSE STRIP ── */
+.verse-strip {
+  background: #111;
+  color: #fff;
+  padding: 22px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.verse-strip .v-ref {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #888;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.verse-strip .v-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #ddd;
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.verse-strip .v-link { font-size: 12px; color: #777; white-space: nowrap; }
+.verse-strip .v-link a { color: #bbb; text-decoration: underline; text-underline-offset: 3px; }
+
+.verse-btn {
+  background: none;
+  border: 1px solid #444;
+  color: #777;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.verse-btn:hover { border-color: #999; color: #bbb; }
+
+/* ── MAIN ── */
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 40px;
+}
+
+.filter-row {
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 36px;
+  gap: 0;
+}
+
+.filter-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 10px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.filter-tab:hover { color: #333; }
+.filter-tab.active { color: #111; border-bottom-color: #111; font-weight: 500; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 20px;
+}
+@media (max-width: 1100px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 740px)  { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px)  { .product-grid { grid-template-columns: 1fr; } }
+
+.product-card { cursor: pointer; }
+.product-card:hover .product-img { background: #ebebeb; }
+
+.product-img {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.product-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-img-ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #ccc;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.coming-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #111;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.product-cat {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 4px;
+}
+
+.product-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.product-verse {
+  font-size: 12px;
+  color: #aaa;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ── ABOUT ── */
+.about-section {
+  background: #f7f5f0;
+  border-top: 1px solid #e5e5e5;
+  padding: 72px 40px;
+}
+
+.about-inner {
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.about-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.about-inner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #111;
+  margin-bottom: 24px;
+}
+
+.about-inner p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.about-inner blockquote {
+  border-left: 2px solid #111;
+  padding-left: 20px;
+  margin: 28px 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.7;
+}
+
+.about-inner blockquote cite {
+  display: block;
+  font-size: 11px;
+  color: #aaa;
+  font-style: normal;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e5e5e5;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.brand-foot {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.copy { font-size: 11px; color: #bbb; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <a class="brand" href="#">Army of God</a>
+
+    <div class="search-wrap">
+      <input type="text" id="search-input" placeholder="Search products, verses..."/>
+      <button class="search-icon" onclick="doSearch()">&#x2315;</button>
+      <div id="search-results"></div>
+    </div>
+
+    <nav class="nav-right">
+      <a href="#home">Home</a>
+      <div class="nav-dropdown">
+        <button>Shop &#9662;</button>
+        <div class="dropdown-menu">
+          <a href="#shop" data-filter="sweatshirt">Sweatshirts</a>
+          <a href="#shop" data-filter="shirt">T-Shirts</a>
+          <a href="#shop" data-filter="hat">Hats</a>
+          <a href="#shop" data-filter="accessory">Accessories</a>
+          <a href="#shop" data-filter="">All Items</a>
+        </div>
+      </div>
+      <a href="#verse">Verses</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <h1>Army of God</h1>
+  <p>Chosen &nbsp;&middot;&nbsp; Called &nbsp;&middot;&nbsp; Sent</p>
+</section>
+
+<!-- VERSE -->
+<div class="verse-strip" id="verse">
+  <span class="v-ref" id="v-ref"></span>
+  <span class="v-text" id="v-text"></span>
+  <span class="v-link" id="v-link"></span>
+  <button class="verse-btn" onclick="renderVerse()">&#8635; New Verse</button>
+</div>
+
+<!-- SHOP -->
+<main id="shop">
+  <div class="filter-row" id="filter-row">
+    <button class="filter-tab active" data-filter="">All</button>
+    <button class="filter-tab" data-filter="sweatshirt">Sweatshirts</button>
+    <button class="filter-tab" data-filter="shirt">T-Shirts</button>
+    <button class="filter-tab" data-filter="hat">Hats</button>
+    <button class="filter-tab" data-filter="accessory">Accessories</button>
+  </div>
+  <div class="product-grid" id="product-grid"></div>
+</main>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <p class="about-label">Our Mission</p>
+    <h2>About Us</h2>
+    <p>Army of God is more than a brand — it's a declaration. We are a people set apart, called to walk boldly in faith, and sent to make His name known in every corner of the earth.</p>
+    <p>Every design we create is grounded in scripture, crafted with purpose, and worn as a testimony. When you wear our gear, you carry the Word with you — a conversation starter, a reminder, a witness.</p>
+    <blockquote>
+      "For we do not wrestle against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this age."
+      <cite>— Ephesians 6:12</cite>
+    </blockquote>
+    <p>We believe clothing can be ministry. We believe fashion can carry faith. Join the Army.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="brand-foot">Army of God</span>
+  <span class="copy">&copy; 2025 Army of God. All rights reserved.</span>
+</footer>
+
+<script>
+// ============================================================
+// PRODUCTS — Add or edit items here
+// To add: copy one block, paste at the end, update the fields.
+// imgSrc: put the image filename here once you have photos,
+//         e.g. imgSrc: "my-shirt.jpg"  (place file next to index.html)
+//         Leave as "" to show the placeholder box.
+// comingSoon: change to false once the item is available
+// ============================================================
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Soldier of Christ Sweatshirt",
+    category: "sweatshirt",
+    verse: "Put on the full armor of God — Eph. 6:11",
+    verseRef: "Ephesians 6:11",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 2,
+    name: "Genesis 1:1 Tee",
+    category: "shirt",
+    verse: "In the beginning God created — Gen. 1:1",
+    verseRef: "Genesis 1:1",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 3,
+    name: "Army of God Snapback",
+    category: "hat",
+    verse: "The Lord your God goes with you — Deut. 31:6",
+    verseRef: "Deuteronomy 31:6",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 4,
+    name: "Faith Over Fear Hoodie",
+    category: "sweatshirt",
+    verse: "Be strong and courageous — Joshua 1:9",
+    verseRef: "Joshua 1:9",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 5,
+    name: "Armor of God Wristband",
+    category: "accessory",
+    verse: "Stand firm in the faith — 1 Cor. 16:13",
+    verseRef: "1 Corinthians 16:13",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 6,
+    name: "Romans 8:37 Tee",
+    category: "shirt",
+    verse: "We are more than conquerors — Rom. 8:37",
+    verseRef: "Romans 8:37",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 7,
+    name: "Chosen Nation Cap",
+    category: "hat",
+    verse: "You are a chosen generation — 1 Pet. 2:9",
+    verseRef: "1 Peter 2:9",
+    imgSrc: "",
+    comingSoon: true
+  },
+  {
+    id: 8,
+    name: "Cross Dog Tag",
+    category: "accessory",
+    verse: "I have been crucified with Christ — Gal. 2:20",
+    verseRef: "Galatians 2:20",
+    imgSrc: "",
+    comingSoon: true
+  }
+];
+
+// ============================================================
+// VERSES — Add or edit memory verses here
+// productId: the id number of the product this verse links to,
+//            or null if no product link
+// ============================================================
+const VERSES = [
+  { ref: "Genesis 1:1",      text: "In the beginning God created the heavens and the earth.", productId: 2 },
+  { ref: "Ephesians 6:11",   text: "Put on the full armor of God, so that you can take your stand against the devil's schemes.", productId: 1 },
+  { ref: "Joshua 1:9",       text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", productId: 4 },
+  { ref: "Romans 8:37",      text: "No, in all these things we are more than conquerors through him who loved us.", productId: 6 },
+  { ref: "Philippians 4:13", text: "I can do all this through him who gives me strength.", productId: null },
+  { ref: "Deuteronomy 31:6", text: "Be strong and courageous. Do not be afraid or terrified, for the Lord your God goes with you.", productId: 3 },
+  { ref: "1 Peter 2:9",      text: "But you are a chosen generation, a royal priesthood, a holy nation, His own special people.", productId: 7 },
+  { ref: "Galatians 2:20",   text: "I have been crucified with Christ and I no longer live, but Christ lives in me.", productId: 8 }
+];
+
+// ── Render verse ──
+function renderVerse() {
+  const v = VERSES[Math.floor(Math.random() * VERSES.length)];
+  const p = v.productId ? PRODUCTS.find(x => x.id === v.productId) : null;
+  document.getElementById('v-ref').textContent = v.ref;
+  document.getElementById('v-text').textContent = v.text;
+  document.getElementById('v-link').innerHTML = p
+    ? `Featured: <a href="#shop" onclick="filterTo('${p.category}')">${p.name}</a>`
+    : '';
+}
+
+// ── Render products ──
+function renderProducts(filter) {
+  const list = filter ? PRODUCTS.filter(p => p.category === filter) : PRODUCTS;
+  document.getElementById('product-grid').innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img">
+        ${p.imgSrc
+          ? `<img src="${p.imgSrc}" alt="${p.name}"/>`
+          : `<div class="product-img-ph">
+               <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#ccc" stroke-width="1">
+                 <rect x="3" y="3" width="30" height="30" rx="2"/>
+                 <path d="M3 26 L11 18 L18 24 L25 16 L33 26" fill="none"/>
+                 <circle cx="13" cy="13" r="3"/>
+               </svg>
+               <span>Image coming soon</span>
+             </div>`
+        }
+        ${p.comingSoon ? '<span class="coming-badge">Coming Soon</span>' : ''}
+      </div>
+      <p class="product-cat">${p.category}</p>
+      <p class="product-name">${p.name}</p>
+      <p class="product-verse">${p.verse}</p>
+    </div>
+  `).join('');
+}
+
+// ── Filter ──
+function filterTo(cat) {
+  document.querySelectorAll('.filter-tab').forEach(b =>
+    b.classList.toggle('active', b.dataset.filter === (cat || '')));
+  renderProducts(cat);
+  document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('filter-row').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-tab');
+  if (!btn) return;
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(btn.dataset.filter);
+});
+
+document.querySelectorAll('.dropdown-menu a[data-filter]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    filterTo(a.dataset.filter);
+  });
+});
+
+// ── Search ──
+function doSearch() {
+  const q = document.getElementById('search-input').value.trim().toLowerCase();
+  const box = document.getElementById('search-results');
+  if (!q) { box.style.display = 'none'; return; }
+  const hits = PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.category.toLowerCase().includes(q) ||
+    p.verse.toLowerCase().includes(q) ||
+    p.verseRef.toLowerCase().includes(q)
+  );
+  box.innerHTML = hits.length
+    ? hits.map(p => `
+        <div class="sr-item" onclick="filterTo('${p.category}');
+          document.getElementById('search-results').style.display='none';
+          document.getElementById('search-input').value='';">
+          <div class="sr-name">${p.name}</div>
+          <div class="sr-sub">${p.category} · ${p.verseRef}</div>
+        </div>`).join('')
+    : '<div class="sr-no">No results found.</div>';
+  box.style.display = 'block';
+}
+
+document.getElementById('search-input').addEventListener('input', doSearch);
+document.getElementById('search-input').addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('search-results').style.display = 'none';
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap'))
+    document.getElementById('search-results').style.display = 'none';
+});
+
+// ── Init ──
+renderVerse();
+renderProducts('');
+</script>
+</body>
+</html>
