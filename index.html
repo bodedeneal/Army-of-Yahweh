@@ -141,11 +141,20 @@ header {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%;       /* Move it to touch the button */
+  /* 1. Set top to 100% so it touches the button */
+  top: 100%; 
   right: 0;
   min-width: 180px;
+  background: #fff;
+  /* 2. Add a 20px transparent top border to create the visual gap */
+  border: 1px solid #e5e5e5;
+  border-top: 20px solid transparent; 
+  /* 3. Use this to keep the white background from filling the border */
+  background-clip: padding-box; 
+  
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   z-index: 200;
-  padding-top: 20px; /* This creates your 20px gap */
 }
 
 .nav-dropdown:hover .dropdown-menu { display: block; }
