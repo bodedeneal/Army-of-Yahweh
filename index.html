@@ -141,16 +141,13 @@ header {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 20px);
+  top: 100%;       /* Move it to touch the button */
   right: 0;
   min-width: 180px;
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   z-index: 200;
-  overflow: hidden;
+  padding-top: 20px; /* This creates your 20px gap */
 }
+
 .nav-dropdown:hover .dropdown-menu { display: block; }
 
 .dropdown-menu a {
