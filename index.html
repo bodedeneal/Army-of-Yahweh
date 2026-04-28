@@ -121,7 +121,7 @@ header {
 }
 .nav-right a:hover { color: #000; }
 
-.nav-dropdown { position: absolute; }
+.nav-dropdown { position: relative; }
 
 .nav-dropdown > button {
   font-family: 'Inter', sans-serif;
@@ -138,6 +138,17 @@ header {
 }
 .nav-dropdown > button:hover { color: #000; }
 
+/* Add this snippet to bridge the gap */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -20px;       /* This fills the 20px gap you created */
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: transparent; /* It's invisible, but it catches the mouse */
+}
+  
 .dropdown-menu {
   display: none;
   position: absolute;
